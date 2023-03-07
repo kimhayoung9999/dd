@@ -200,8 +200,6 @@ void ADice::ExReqCheckPlane()
 	if (IsHit)
 	{
 		UE_LOG(LogTemp , Error , TEXT("Hit"));
-		//GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Red , FString::Printf(TEXT("impact Point: %s") , Hit.ImpactPoint));
-
 		GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Magenta , FString::Printf(TEXT(" %s:actor") , *Hit.GetActor()->GetName()));
 		BoxComponent->AddRelativeRotation(FRotator(20 , 10 , 20));
 		BoxComponent->AddImpulseAtLocation(GetActorLocation() , GetActorLocation() * (Hit.GetActor()->GetActorUpVector() * 100));

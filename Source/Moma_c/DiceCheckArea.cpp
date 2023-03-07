@@ -67,12 +67,9 @@ void ADiceCheckArea::LinetraceDice(FVector StartLoc , FVector EndLoc , AActor* D
 	FVector StartLocation = StartLoc;
 	FVector EndLocation = EndLoc;
 	GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Yellow , TEXT(" CheckDices") );
-
 	bool IsHit = GetWorld()->LineTraceSingleByChannel
 	(Hit , StartLocation , EndLocation , ECollisionChannel::ECC_Visibility , params);
-	
 	DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Black, false, 10.f, 0U, 10.f);
-	
 	if (IsHit)
 	{
 		if (Dice == Hit.GetActor())
@@ -80,19 +77,13 @@ void ADiceCheckArea::LinetraceDice(FVector StartLoc , FVector EndLoc , AActor* D
 			GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Cyan , FString::Printf(TEXT(" %s:HitActor") , *Hit.GetActor()->GetName()));
 			GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Cyan , FString::Printf(TEXT(" %s:Dice") , *Dice->GetName()));
 			GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Cyan , FString::Printf(TEXT(" %s:HitActor.CompName") , *Hit.Component.Get()->GetName()));
-			//GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Cyan , FString::Printf(TEXT(" %s:Dice.CompName") , *Dice->GetName()));
-
 			for (int j = 0; j < Hit.GetComponent()->ComponentTags.Num(); ++j)
 			{
-
-				GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Purple , FString::Printf(TEXT(" Hit.GetComponent()->ComponentTags.Num(): %d") , Hit.GetComponent()->ComponentTags.Num()));
+				GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Purple , FString::Printf(TEXT(" Hit.GetComponent()->ComponentTags.Num(): %d") ,
+				Hit.GetComponent()->ComponentTags.Num()));
 				GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Purple , FString::Printf(TEXT(" %s:Tag") , *Hit.GetComponent()->ComponentTags[j].ToString()));
 				GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Black , FString::Printf(TEXT(" %d:Num") , FCString::Atoi(*Hit.GetComponent()->ComponentTags[j].ToString())));
 				Character = Cast<AMoma_cCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
-				if(Character)
-				{
-					//GEngine->AddOnScreenDebugMessage(-1 , 10 , FColor::Green , FString::Printf(TEXT(" 5767980")));
-				}
 				Character->DestBoard += FCString::Atoi64(*Hit.GetComponent()->ComponentTags[j].ToString());
 				int Num = Character->DestBoard;
 				Character->Go(Num);
